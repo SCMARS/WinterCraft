@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --snow-white: #ffffff;
+  --snow-white-soft: #f0f5ff;
+  --frost-blue: #cfe9ff;
+  --frost-blue-dark: #a0c8e0;
+  --ice-blue: #a6d3ff;
+  --ice-blue-dark: #7ab0e6;
+  --ice-blue-light: #d1e8ff;
+  --christmas-red: #e84141;
+  --christmas-red-dark: #c93030;
+  --gold: #f5d76e;
+  --gold-dark: #e6c44d;
+  --midnight: #0d1b2a;
+  --midnight-light: #1a2c42;
+  --midnight-dark: #071525;
+  --aurora-green: #7be0ad;
+  --aurora-purple: #b892ff;
+  --aurora-pink: #ff9fb2;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--midnight);
+  color: var(--snow-white);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  letter-spacing: 0.015em;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--midnight-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--frost-blue-dark);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ice-blue);
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--ice-blue);
+  color: var(--midnight);
+}
+
+/* Snow animation container */
+.snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Snowflake styles */
+.snowflake {
+  position: absolute;
+  color: var(--snow-white);
+  opacity: 0.8;
+  font-size: 1.5rem;
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+}
+
+/* Glass effect */
+.glass-effect {
+  @apply bg-midnight bg-opacity-40 backdrop-blur-sm border border-frost-blue border-opacity-30;
+}
+
+/* Custom button styles */
+.winter-button {
+  @apply bg-ice-blue text-midnight font-bold py-3 px-8 rounded-xl 
+         transition-all duration-300 hover:bg-ice-blue-dark 
+         hover:shadow-frost-lg transform hover:-translate-y-1 
+         focus:outline-none focus:ring-2 focus:ring-ice-blue-light;
+}
+
+.christmas-button {
+  @apply bg-christmas-red text-snow-white font-bold py-3 px-8 rounded-xl 
+         transition-all duration-300 hover:bg-christmas-red-dark 
+         hover:shadow-frost-lg transform hover:-translate-y-1 
+         focus:outline-none focus:ring-2 focus:ring-christmas-red;
+}
+
+.gold-button {
+  @apply bg-gold text-midnight font-bold py-3 px-8 rounded-xl 
+         transition-all duration-300 hover:bg-gold-dark 
+         hover:shadow-frost-lg transform hover:-translate-y-1 
+         focus:outline-none focus:ring-2 focus:ring-gold;
+}
+
+/* Card styles */
+.frost-card {
+  @apply bg-midnight bg-opacity-80 border-2 border-frost-blue 
+         rounded-2xl p-6 shadow-frost transition-all duration-300 
+         hover:border-ice-blue hover:shadow-frost-lg;
+}
+
+.aurora-card {
+  @apply bg-midnight bg-opacity-70 rounded-2xl p-6 shadow-frost 
+         transition-all duration-300 hover:shadow-frost-lg 
+         relative overflow-hidden;
+}
+
+.aurora-card::before {
+  content: '';
+  @apply absolute inset-x-0 top-0 h-1 bg-aurora-gradient animate-shimmer;
+  background-size: 200% 100%;
+}
+
+/* Section styles */
+.winter-section {
+  @apply py-20 px-4 md:px-8 animate-fade-in;
+}
+
+/* Heading styles */
+.section-heading {
+  @apply text-3xl md:text-4xl font-playfair font-bold text-snow-white mb-6;
+}
+
+.section-subheading {
+  @apply text-xl md:text-2xl font-playfair text-frost-blue mb-8 max-w-3xl mx-auto;
+}
+
+/* Divider styles */
+.frost-divider {
+  @apply w-24 h-1 bg-ice-blue mx-auto mb-8;
+}
+
+.aurora-divider {
+  @apply w-32 h-1 bg-aurora-gradient mx-auto mb-8;
+}
+
+/* Image styles */
+.frost-image {
+  @apply rounded-2xl overflow-hidden shadow-frost transition-all duration-300 hover:shadow-frost-lg;
+}
+
+/* Link styles */
+.frost-link {
+  @apply text-ice-blue hover:text-snow-white transition-colors duration-300 
+         border-b border-transparent hover:border-ice-blue;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .winter-section {
+    @apply py-12 px-4;
+  }
+
+  .section-heading {
+    @apply text-2xl md:text-3xl;
+  }
+
+  .section-subheading {
+    @apply text-lg md:text-xl;
+  }
+}
