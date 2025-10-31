@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { setPlayerRank } from '../../lib/rcon';
-import { getPlayerByUsername, getDonationPackages } from '../../lib/supabase';
+import { getPlayerByUsername, getDonationPackages, isSupabaseConfigured } from '../../lib/supabase';
+import { recordDonationServer } from '../../lib/supabaseServer';
 
 type DonationResponse = {
   success: boolean;
@@ -28,12 +29,14 @@ export default async function handler(
     }
 
     // Check if player exists
-    const player = await getPlayerByUsername(username);
-    if (!player) {
-      return res.status(404).json({ 
-        success: false, 
-        message: 'Player not found. Make sure you have joined the server at least once.' 
-      });
+    if (isSupabaseConfigured) {
+      const player = await getPlayerByUsername(username);
+      if (!player) {
+        return res.status(404).json({ 
+          success: false, 
+          message: 'Player not found. Make sure you have joined the server at least once.' 
+        });
+      }
     }
 
     // Get donation package details
@@ -50,8 +53,12 @@ export default async function handler(
     // Set player rank using RCON
     await setPlayerRank(username, donationPackage.rank);
 
-    // Record the donation in Supabase (this would be implemented in a real system)
-    // await recordDonation(username, donationPackage.id, donationPackage.price);
+    // Record the donation if the table exists (non-blocking)
+    recordDonationServer({
+      username,
+      package_id: donationPackage.id,
+      price: donationPackage.price,
+    }).catch(() => {});
 
     // Return success response
     return res.status(200).json({ 
