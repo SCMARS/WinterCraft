@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
             <a
-              href="https://discord.gg/wintercraft"
+              href="https://discord.gg/FbVCPBf9EZ"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-4 christmas-button"
@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
             </Link>
           ))}
           <a
-            href="https://discord.gg/wintercraft"
+            href="https://discord.gg/FbVCPBf9EZ"
             target="_blank"
             rel="noopener noreferrer"
             className="block px-3 py-2 mt-4 text-center christmas-button"

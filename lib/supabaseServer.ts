@@ -41,3 +41,28 @@ export async function recordDonationServer(entry: {
   }
 }
 
+export async function submitFeedbackServer(entry: {
+  name: string;
+  email: string;
+  message: string;
+}) {
+  if (!serverClient) {
+    console.warn('[Supabase] Service key not configured. Cannot persist feedback.');
+    return null;
+  }
+  try {
+    const { data, error } = await serverClient
+      .from('feedback')
+      .insert([entry])
+      .select()
+      .single();
+    if (error) {
+      console.warn('[Supabase] submitFeedbackServer failed:', error);
+      return null;
+    }
+    return data;
+  } catch (e) {
+    console.warn('[Supabase] submitFeedbackServer error:', e);
+    return null;
+  }
+}
